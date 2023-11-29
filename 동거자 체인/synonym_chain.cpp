@@ -94,7 +94,7 @@ void remove(SC data[], long long key){
 void print_result(SC data[]){
 	
 	ofstream fout;
-	fout.open("test.txt");
+	fout.open("result.txt");
 	
 	
 	for(int i = 0; i < 16; i++){
