@@ -35,6 +35,8 @@ void insert(SC data[], long long key){
 	
 	//insert next index
 	while(1){
+		if(index == -1)break;
+
 		if(data[index].Next == -1){
 			data[index].Next = push;
 			break;
@@ -70,18 +72,25 @@ void remove(SC data[], long long key){
 		
 	while(1){
 		
+		if(index > 31) break;
+		
 		if(data[index].Key == key){
 			
 			int next = data[index].Next;
-			
+			if(next == -1) {
+				data[index].Key = -1;
+				data[index].Next = -1;
+				break;
+			};
+
 			data[index].Key = data[data[index].Next].Key;
 			data[index].Next = data[data[index].Next].Next;
-		
+
 			data[next].Key = -1;
 			data[next].Next = -1;
 			return;
 		}
-		
+		if(index == -1)break;
 		index = data[index].Next;
 		
 	}	
@@ -102,6 +111,7 @@ void print_result(SC data[]){
 		int index = i;
 		while(1){
 			if(index == -1) break;
+			if(data[index].Key == -1) break;
 			fout << data[index].Key << ",";
 			index = data[index].Next;
 		}
@@ -118,7 +128,7 @@ void print_result(SC data[]){
 int main(){
 	
 	// main : 0 ~ 15    overflow : 16 ~ 31
-	SC hash[32] = {};
+	SC hash[32];
 	//cmd start. 
 	ifstream fin;
 	fin.open("hash_cmd.txt");
